@@ -39,7 +39,7 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to `gce` you will need,
+To deploy to `gke` you will need,
 
 * [google kubernetes engine (gke)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/google-cloud-platform-cheat-sheet/google-kubernetes-engine.md)
 
@@ -158,7 +158,7 @@ Refer to my
 [gke cheat sheet](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/google-cloud-platform-cheat-sheet/google-kubernetes-engine.md)
 for more detailed information and some nice illustrations.
 
-There are x steps to deployment on `gke`,
+There are ??? steps to deployment on `gke`,
 
 * tbd
 
@@ -170,10 +170,10 @@ Check on `gke` was created,
 tbd
 
 This script runs the create an `???` commands.
-[/gce-deploy/create-instance-group/create-???.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/gce-deploy/create-???/create-???.sh).
+[/deploy-gke/???.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/deploy-gke/????.sh).
 
 Lastly, this script runs all of the above commands in concourse
-[/ci/scripts/???.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/???.sh).
+[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/deploy.sh).
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
