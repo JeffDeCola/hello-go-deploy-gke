@@ -50,9 +50,9 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to aws you will need,
+To deploy to gke you will need,
 
-* [amazon web services (aws)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/infrastructure-as-a-service/cloud-services/amazon-web-services-cheat-sheet)
+* [google kubernetes engine (gke)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/containers-as-a-service/google-kubernetes-engine-cheat-sheet)
 
 As a bonus, you can use Concourse CI to run the scripts,
 
