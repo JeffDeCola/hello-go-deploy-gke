@@ -1,22 +1,33 @@
 # hello-go-deploy-gke
 
+```text
+*** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
+```
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-gke)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-gke)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1d1494edd873695576d2/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ce328e08ef7038607b16/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/maintainability)
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
 `hello-go-deploy-gke` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Google Kubernetes Engine (gke)._
+a long running "hello-world" Docker Image to google kubernetes engine (gke)._
 
 I also have other repos showing different deployments,
 
-* [hello-go-deploy-aws](https://github.com/JeffDeCola/hello-go-deploy-aws)
-* [hello-go-deploy-azure](https://github.com/JeffDeCola/hello-go-deploy-azure)
-* [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
-* [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
-* hello-go-deploy-gke <- You are here!
-* [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
+* PaaS
+  * [hello-go-deploy-aws-lambda](https://github.com/JeffDeCola/hello-go-deploy-aws-lambda)
+  * [hello-go-deploy-azure-functions](https://github.com/JeffDeCola/hello-go-deploy-azure-functions)
+  * [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
+  * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
+* CaaS
+  * [hello-go-deploy-amazon-ecs](https://github.com/JeffDeCola/hello-go-deploy-amazon-ecs)
+  * [hello-go-deploy-aks](https://github.com/JeffDeCola/hello-go-deploy-aks)
+  * [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
+* IaaS
+  * [hello-go-deploy-amazon-ec2](https://github.com/JeffDeCola/hello-go-deploy-amazon-ec2)
+  * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
+  * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 
 The `hello-go-deploy-gke`
 [Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke)
@@ -39,16 +50,20 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to `gke` you will need,
+To deploy to aws you will need,
 
-* [google kubernetes engine (gke)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/google-cloud-platform-cheat-sheet/google-kubernetes-engine.md)
+* [amazon web services (aws)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/infrastructure-as-a-service/cloud-services/amazon-web-services-cheat-sheet)
 
 As a bonus, you can use Concourse CI to run the scripts,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## RUN
+## EXAMPLES
+
+This repo may have a few examples. We will deploy example 1.
+
+### EXAMPLE 1
 
 To run from the command line,
 
@@ -73,11 +88,9 @@ Lets unit test the code,
 go test -cover ./... | tee /test/test_coverage.txt
 ```
 
-This script runs the above command
-[/test/unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/test/unit-tests.sh).
-
-This script runs the above command in concourse
-[/ci/scripts/unit-test.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/unit-tests.sh).
+There is a `unit-tests.sh` script to run the unit tests.
+There is also a script in the /ci folder to run the unit tests
+in concourse.
 
 ## STEP 2 - BUILD (DOCKER IMAGE)
 
@@ -121,11 +134,9 @@ You can test your dockerhub image,
 docker run jeffdecola/hello-go-deploy-gke
 ```
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/build-push/build-push.sh).
-
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
 ## STEP 3 - PUSH (TO DOCKERHUB)
 
@@ -137,7 +148,7 @@ If you are not logged in, you need to login to dockerhub,
 docker login
 ```
 
-Once logged in you can push,
+Once logged in you can push to DockerHub
 
 ```bash
 docker push jeffdecola/hello-go-deploy-gke
@@ -146,34 +157,13 @@ docker push jeffdecola/hello-go-deploy-gke
 Check you image at DockerHub. My image is located
 [https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke).
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/build-push/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/build-push.sh).
-
-## STEP 4 - DEPLOY (TO GKE)
-
-Refer to my
-[gke cheat sheet](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/google-cloud-platform-cheat-sheet/google-kubernetes-engine.md)
-for more detailed information and some nice illustrations.
-
-There are ??? steps to deployment on `gke`,
-
-* tbd
-
-The end goal is to have your service (the dockerhub image) `hello-go-deploy-gke`
-running on a `gke` as a VM??????????????????? - check this-----?????
-
-Check on `gke` was created,
+## STEP 4 - DEPLOY
 
 tbd
-
-This script runs the create an `???` commands.
-[/deploy-gke/???.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/deploy-gke/????.sh).
-
-Lastly, this script runs all of the above commands in concourse
-[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/deploy.sh).
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
@@ -195,7 +185,7 @@ The `jobs` and `tasks` are,
 * `job-deploy` runs task
   [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/deploy.sh).
 
-The concourse `resources types` are,
+The concourse `resources type` are,
 
 * `hello-go-deploy-gke` uses a resource type
   [docker-image](https://hub.docker.com/r/concourse/git-resource/)

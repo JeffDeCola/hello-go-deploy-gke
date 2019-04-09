@@ -1,4 +1,4 @@
-// hello-go-deploy-gke main.go
+// hello-go-deploy-amazon-ec2 main.go
 
 package main
 

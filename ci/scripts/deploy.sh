@@ -17,32 +17,11 @@ else
     echo " "
 fi
 
-echo "The goal is to send the docker image to gke"
-echo ""
-echo ""
-echo ""
-echo " "
-
-echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
+echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
 echo "   /hello-go-deploy-gke"
 echo " "
 
-echo "pwd is: $PWD"
-echo " "
-
-echo "List whats in the current directory"
-ls -la
-echo " "
-
-echo "cd hello-go-deploy-gke"
-cd hello-go-deploy-gke
-echo " "
-
-echo "List whats in the current directory"
-ls -la
-echo " "
-
-echo "STEP ONE - ???????"
+echo "This is a placeholder"
 echo " "
 
 echo "deploy.sh (END)"
