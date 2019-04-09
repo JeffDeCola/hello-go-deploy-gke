@@ -11,13 +11,13 @@
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
 `hello-go-deploy-gke` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to google kubernetes engine (gke)._
+a long running "hello-world" Docker Image to Google Kubernetes Engine (gke)._
 
 I also have other repos showing different deployments,
 
 * PaaS
-  * [hello-go-deploy-aws-lambda](https://github.com/JeffDeCola/hello-go-deploy-aws-lambda)
-  * [hello-go-deploy-azure-functions](https://github.com/JeffDeCola/hello-go-deploy-azure-functions)
+  * [hello-go-deploy-aws-elastic-beanstalk](https://github.com/JeffDeCola/hello-go-deploy-aws-elastic-beanstalk)
+  * [hello-go-deploy-azure-app-service](https://github.com/JeffDeCola/hello-go-deploy-azure-app-service)
   * [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
   * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
 * CaaS
@@ -50,7 +50,7 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to gke you will need,
+To deploy to `gke` you will need,
 
 * [google kubernetes engine (gke)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/containers-as-a-service/google-kubernetes-engine-cheat-sheet)
 
