@@ -30,27 +30,32 @@ echo " "
 echo "pwd is: $PWD"
 echo " "
 
+echo "export START_DIRECTORY=$PWD"
+export START_DIRECTORY="$PWD"
+echo " "
+
 echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "Setup the GOPATH based on current directory"
-export GOPATH=$PWD
+echo "mkdir -p $GOPATH/src/github.com/JeffDeCola/"
+mkdir -p "$GOPATH/src/github.com/JeffDeCola/"
 echo " "
 
-echo "Now we must move our code from the current directory ./hello-go-deploy-gke to" 
-echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-gke"
-mkdir -p src/github.com/JeffDeCola/
-cp -R ./hello-go-deploy-gke src/github.com/JeffDeCola/.
+echo "cp -R ./hello-go-deploy-gke $GOPATH/src/github.com/JeffDeCola/."
+cp -R "./hello-go-deploy-gke" "$GOPATH/src/github.com/JeffDeCola/."
 echo " "
 
-echo "cd src/github.com/JeffDeCola/hello-go-deploy-gke"
-cd src/github.com/JeffDeCola/hello-go-deploy-gke
+echo "cd $GOPATH/src/github.com/JeffDeCola/hello-go-deploy-gke/example-01-gke"
+cd "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-gke/example-01-gke"
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
 echo "gopath is: $GOPATH"
 echo "pwd is: $PWD"
+go version
+
+echo "ls -la"
 ls -la
 echo " "
 
@@ -68,7 +73,7 @@ echo "The test_coverage.txt file will be used by the concourse pipeline to send 
 echo " "
 
 echo "Move text_coverage.txt to /coverage-results directory"
-mv "test/test_coverage.txt" "$GOPATH/coverage-results/"
+mv "test/test_coverage.txt" "$START_DIRECTORY/coverage-results/"
 echo " "
 
 echo "unit-tests.sh (END)"
