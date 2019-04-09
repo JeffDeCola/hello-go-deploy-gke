@@ -1,1 +1,0 @@
-ok  	github.com/JeffDeCola/hello-go-deploy-amazon-ec2/example-01-amazon-ec2	(cached)	coverage: 0.0% of statements
