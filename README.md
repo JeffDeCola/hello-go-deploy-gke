@@ -93,46 +93,41 @@ There is a `unit-tests.sh` script to run the unit tests.
 There is also a script in the /ci folder to run the unit tests
 in concourse.
 
-## STEP 2 - BUILD (DOCKER IMAGE)
+## STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
 
-Lets build a docker image from your binary `/bin/hello-go`.
-
-First, create a binary `hello-go`,
-I keep my binaries in `/bin`.
+We will be using a multi-stage build using a Dockerfile.
+The end result will be a very small docker image around 13MB.
 
 ```bash
-go build -o bin/hello-go main.go
-```
-
-Copy the binary to `/build-push` because docker needs it in
-same directory as Dockerfile,
-
-```bash
-cp bin/hello-go build-push/.
-cd build-push
-```
-
-Build your docker image from binary `hello-go`
-using `Dockerfile`,
-
-```bash
-docker build -t jeffdecola/hello-go-deploy-gke .
+docker build -f build-push/Dockerfile -t jeffdecola/hello-go-deploy-gke .
 ```
 
 Obviously, replace `jeffdecola` with your DockerHub username.
 
-Check your docker images on your machine,
+In stage 1, rather than copy a binary into a docker image (because
+that can cause issue), the Dockerfile will build the binary in the
+docker image.
+
+If you open the DockerFile you can see it will get the dependencies and
+build the binary in go,
 
 ```bash
-docker images
+FROM golang:alpine AS builder
+RUN go get -d -v
+RUN go build -o /go/bin/hello-go-deploy-gke main.go
 ```
 
-It will be listed as `jeffdecola/hello-go-deploy-gke`
+In stage 2, the Dockerfile will copy the binary created in
+stage 1 and place into a smaller docker base image based
+on `alpine`, which is around 13MB.
 
-You can test your dockerhub image,
+You can check and test your docker image,
 
 ```bash
-docker run jeffdecola/hello-go-deploy-gke
+docker run --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
+docker exec -i -t hello-go-deploy-gke /bin/bash
+docker logs hello-go-deploy-gke
+docker images jeffdecola/hello-go-deploy-gke:latest
 ```
 
 There is a `build-push.sh` script to build and push to DockerHub.
