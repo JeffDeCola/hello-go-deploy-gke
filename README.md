@@ -147,7 +147,7 @@ on `alpine`, which is around 13MB.
 You can check and test your docker image,
 
 ```bash
-docker run --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
+docker run -p 8080:8080 --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
 docker exec -i -t hello-go-deploy-gke /bin/bash
 docker logs hello-go-deploy-gke
 docker images jeffdecola/hello-go-deploy-gke:latest
