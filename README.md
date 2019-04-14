@@ -56,7 +56,7 @@ As a bonus, you can use Concourse CI to run the scripts,
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## CREATE A 3 NODE KUBERNETES CLUSTER ON GCE
+## CREATE A KUBERNETES CLUSTER ON GCE (3 NODES)
 
 Before we can do anything, you need to create a kubernetes cluster on `gce`.
 This costs money, so when you're done, you can destroy it.
@@ -193,17 +193,18 @@ kubectl run jeffs-web-counter \
 
 This will make a container in a pod on a node.
 
-Make a `service` - Export a `workload` port 8080 to the world (This will
+Mow make a `service` from your `workload`.
+Expose a `workload` port 8080 to the world (This will
 make an IP address),
 
 ```bash
-kubectl expose deployment jeffs-web-counter-4 \
+kubectl expose deployment jeffs-web-counter \
     --type LoadBalancer \
     --port 80 \
     --target-port 8080
 ```
 
-Inspect your `service`,
+Inspect your `service` to get IP,
 
 ```bash
 kubectl get service jeffs-web-counter
@@ -231,7 +232,7 @@ Then run a proxy,
 kubectl proxy
 ```
 
-And open in a browser,
+And open in a browser and enter your token,
 
 [localhost:8001](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
 

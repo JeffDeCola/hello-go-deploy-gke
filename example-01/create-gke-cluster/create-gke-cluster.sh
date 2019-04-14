@@ -18,10 +18,10 @@ else
     echo " "
 fi
 
-echo "Create an affordable 1 node Kubernetes cluster at gke using preemptible g1-small "
+echo "Create an affordable 3 node Kubernetes cluster at gke using preemptible f1-micro "
 gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
     clusters create jeffs-gke-cluster-hello-go-deploy-gke \
-    --addons HorizontalPodAutoscaling,HttpLoadBalancing \
+    --addons HorizontalPodAutoscaling,HttpLoadBalancing,KubernetesDashboard \
     --disk-size "10" \
     --disk-type "pd-standard" \
     --enable-autorepair \
@@ -29,7 +29,7 @@ gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
     --enable-cloud-logging \
     --enable-cloud-monitoring \
     --image-type "COS" \
-    --machine-type "g1-small" \
+    --machine-type "f1-micro" \
     --no-enable-ip-alias \
     --num-nodes "3" \
     --preemptible \
