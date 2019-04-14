@@ -39,7 +39,9 @@ gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
 echo " "
 
 echo "Authenticate cluster"
-gcloud container clusters get-credentials jeffs-gke-cluster-hello-go-deploy-gke --zone us-west1-a --project $GCP_JEFFS_PROJECT_ID
+gcloud container clusters get-credentials jeffs-gke-cluster-hello-go-deploy-gke \
+    --zone us-west1-a \
+    --project $GCP_JEFFS_PROJECT_ID
 echo " "
 
 echo "*************************************************************************************"
