@@ -73,6 +73,12 @@ using small `f1-micro` machines. This should cost under 20 cents for a few hours
 
 The script will also authenticate with your cluster.
 
+To destroy cluster,
+
+```bash
+gcloud container clusters delete jeffs-gke-cluster-hello-go-deploy-gke
+```
+
 ## EXAMPLES
 
 This repo may have a few examples. We will deploy example 1.
@@ -180,7 +186,34 @@ in concourse.
 
 ## STEP 4 - DEPLOY
 
-tbd
+Deploy your docker image on Dockerhub to your cluster,
+
+```bash
+kubectl run jeffs-web-counter \
+    --image "jeffdecola/hello-go-deploy-gke:latest" \
+    --port "8080"
+```
+
+Export to the world,
+
+```bash
+kubectl expose deployment jeffs-web-counter \
+    --type LoadBalancer \
+    --port 80 \
+    --target-port 8080
+```
+
+Inspect your service,
+
+```bash
+kubectl get service jeffs-web-counter
+```
+
+Delete your service,
+
+```bash
+kubectl delete service jeffs-web-counter
+```
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 

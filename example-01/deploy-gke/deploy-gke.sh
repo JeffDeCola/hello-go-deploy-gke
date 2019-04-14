@@ -18,7 +18,24 @@ else
     echo " "
 fi
 
+echo "Deploy your docker image on Dockerhub to your cluster"
+kubectl run jeffs-web-counter \
+    --image "jeffdecola/hello-go-deploy-gke:latest" \
+    --port "8080"
 echo " "
+
+echo "Export to the world"
+kubectl expose deployment jeffs-web-counter \
+    --type LoadBalancer \
+    --port 80 \
+    --target-port 8080
+echo " "
+
+echo "You can inspect your service" 
+echo "    kubectl get service jeffs-web-counter"
+echo " "
+echo "You can delete your service" 
+echo "    kubectl delete service jeffs-web-counter"
 echo " "
 
 echo "*****************************************************************************"
