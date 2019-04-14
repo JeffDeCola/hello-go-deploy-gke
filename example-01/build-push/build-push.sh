@@ -47,7 +47,9 @@ docker push jeffdecola/hello-go-deploy-gke
 echo " "
 
 echo "Useful commands:"
-echo "     docker run --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke"
+echo "     docker run -p 8080:8080 --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke"
+echo "     curl localhost:8080"
+echo "     http://localhost:8080"
 echo "     docker exec -i -t hello-go-deploy-gke /bin/bash"
 echo "     docker logs hello-go-deploy-gke"
 echo " "

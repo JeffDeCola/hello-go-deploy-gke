@@ -39,6 +39,8 @@ RUN mkdir /app
 COPY --from=builder /go/bin/hello-go-deploy-gke /app/hello-go-deploy-gke
 WORKDIR /app
 
+EXPOSE 8080
+
 # Add the ailibty to /bin/bash in alpine
 RUN apk add --update bash
 
