@@ -79,7 +79,7 @@ This repo may have a few examples. We will deploy example 1.
 
 ### EXAMPLE 1
 
-This script will display on a webpage a running count.
+This program will display a running count on a website.
 
 ```bash
 Hello, world! - hello-go-deploy-gke example 01 - Using a docker container for gke
