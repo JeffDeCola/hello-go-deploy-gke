@@ -60,11 +60,31 @@ As a bonus, you can use Concourse CI to run the scripts,
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
+## CREATE A 3 NODE KUBERNETES CLUSTER ON GCE
+
+Before we can do anything, you need to create a kubernetes cluster on `gce`.
+This costs money, so when you're done, you can destroy it.
+
+My script
+[create-gke-cluster](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/create-gke-cluster/create-gke-cluster.sh)
+fires up an affordable 3-node cluster
+`jeffs-cluster-hello-go-deploy-gke`
+using small `f1-micro` machines. This should cost under 20 cents for a few hours.
+
+The script will also authenticate with your cluster.
+
 ## EXAMPLES
 
 This repo may have a few examples. We will deploy example 1.
 
 ### EXAMPLE 1
+
+This script will display on a webpage a running count.
+
+```bash
+Hello, world! - hello-go-deploy-gke example 01 - Using a docker container for gke
+The current count is 26
+```
 
 To run from the command line,
 
@@ -72,14 +92,15 @@ To run from the command line,
 go run main.go
 ```
 
-Every 2 seconds `hello-go-deploy-gke` will print:
+Check that its working,
 
 ```bash
-Hello everyone, count is: 1
-Hello everyone, count is: 2
-Hello everyone, count is: 3
-etc...
+curl localhost:8080"
 ```
+
+ or
+
+[localhost:8080](http://localhost:8080/)
 
 ## STEP 1 - TEST
 

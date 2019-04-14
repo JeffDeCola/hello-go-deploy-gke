@@ -18,6 +18,12 @@ else
     echo " "
 fi
 
+echo "Check that it is working"
+echo " "
+echo "      curl localhost:8080"
+echo "      Goto your local webpage: http://localhost:8080/"
+echo " "
+
 echo "go run main.go"
 echo " "
 go run main.go

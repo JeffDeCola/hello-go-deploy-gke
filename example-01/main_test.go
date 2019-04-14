@@ -1,26 +1,75 @@
-// hello-go-deploy-amazon-ec2 main.go
+// hello-go-deploy-gke main.go
+
+// hello-go-deploy-gae main.go
 
 package main
 
-import "testing"
+import (
+	"net/http"
+	"sync"
+	"testing"
+)
 
-func Test_addThis(t *testing.T) {
-	type args struct {
-		a int
-		b int
+func TestCounter_Result(t *testing.T) {
+	type fields struct {
+		sum  int
+		lock sync.RWMutex
 	}
 	tests := []struct {
-		name     string
-		args     args
-		wantTemp int
+		name   string
+		fields fields
+		want   int
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotTemp := addThis(tt.args.a, tt.args.b); gotTemp != tt.wantTemp {
-				t.Errorf("addThis() = %v, want %v", gotTemp, tt.wantTemp)
+			c := &Counter{
+				sum:  tt.fields.sum,
+				lock: tt.fields.lock,
 			}
+			if got := c.Result(); got != tt.want {
+				t.Errorf("Counter.Result() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestCounter_addThis(t *testing.T) {
+	type fields struct {
+		sum  int
+		lock sync.RWMutex
+	}
+	type args struct {
+		i int
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Counter{
+				sum:  tt.fields.sum,
+				lock: tt.fields.lock,
+			}
+			c.addThis(tt.args.i)
+		})
+	}
+}
+
+func Test_loopForever(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			loopForever()
 		})
 	}
 }
@@ -34,6 +83,24 @@ func Test_main(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			main()
+		})
+	}
+}
+
+func Test_handleJeff(t *testing.T) {
+	type args struct {
+		w http.ResponseWriter
+		r *http.Request
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			handleJeff(tt.args.w, tt.args.r)
 		})
 	}
 }
