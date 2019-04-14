@@ -1,9 +1,5 @@
 # hello-go-deploy-gke
 
-```text
-*** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
-```
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-gke)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-gke)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ce328e08ef7038607b16/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/maintainability)
@@ -184,9 +180,10 @@ There is a `build-push.sh` script to build and push to DockerHub.
 There is also a script in the /ci folder to build and push
 in concourse.
 
-## STEP 4 - DEPLOY
+## STEP 4 - DEPLOY (TO KUBERNETES CLUSTER)
 
-Deploy your docker image on Dockerhub to your cluster,
+Deploy your docker image on Dockerhub to your cluster
+you made above (creates a `workload`),
 
 ```bash
 kubectl run jeffs-web-counter \
@@ -194,26 +191,49 @@ kubectl run jeffs-web-counter \
     --port "8080"
 ```
 
-Export to the world,
+This will make a container in a pod on a node.
+
+Make a `service` - Export a `workload` port 8080 to the world (This will
+make an IP address),
 
 ```bash
-kubectl expose deployment jeffs-web-counter \
+kubectl expose deployment jeffs-web-counter-4 \
     --type LoadBalancer \
     --port 80 \
     --target-port 8080
 ```
 
-Inspect your service,
+Inspect your `service`,
 
 ```bash
 kubectl get service jeffs-web-counter
 ```
 
-Delete your service,
+Delete your `service`,
 
 ```bash
 kubectl delete service jeffs-web-counter
 ```
+
+## KUBERNETES DASHBOARD (THIS IS NICE)
+
+If you noticed we used the addon KubernetesDashboard when we created our cluster.
+
+To use, first get a secret token,
+
+```bash
+gcloud config config-helper --format=json | jq -r '.credential.access_token'
+```
+
+Then run a proxy,
+
+```bash
+kubectl proxy
+```
+
+And open in a browser,
+
+[localhost:8001](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
