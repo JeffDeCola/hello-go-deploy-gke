@@ -21,7 +21,15 @@ echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
 echo "   /hello-go-deploy-gke"
 echo " "
 
-echo "This is a placeholder"
+echo "We are Assuming you have a Kubernetes cluster running at GKE"
+echo " "
+
+echo "cd into the deploy-gke directory"
+cd hello-go-deploy-gke/example-01/deploy-gce
+echo " "
+
+echo "sh deploy-gke.sh"
+sh deploy-gke.sh
 echo " "
 
 echo "deploy.sh (END)"
