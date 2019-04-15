@@ -24,10 +24,43 @@ echo " "
 echo "We are Assuming you have a Kubernetes cluster running at GKE"
 echo " "
 
+echo "PRESTEPS"
+echo " "
+
+echo "Note: $GCP_JEFFS_PROJECT_ID AND $GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS env variable already preset"
+echo " "
+
+echo "Write credential.json file to /root from preset $GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE"
+echo "$GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE" | base64 -d > /root/google-credentials.json
+
+echo "Set $GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH (file location) env variable"
+export GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH="/root/google-credentials.json"
+echo " "
+
+echo "gcloud auth activate-service-account $GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS --key-file $GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH"
+gcloud auth activate-service-account "$GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS" --key-file "$GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH"
+echo " "
+
+echo "gcloud config set project $GCP_JEFFS_PROJECT_ID"
+gcloud config set project "$GCP_JEFFS_PROJECT_ID"
+echo " "
+
+echo "gcloud version"
+gcloud version
+echo " "
+
+echo "gcloud components list"
+gcloud components list
+echo " "
+
+echo "gcloud config list"
+gcloud config list
+echo " "
+
 echo "Connect to your cluster"
 gcloud container clusters get-credentials jeffs-gke-cluster-hello-go-deploy-gke \
     --zone us-west1-a \
-    --project $GCP_JEFFS_PROJECT_ID
+    --project "$GCP_JEFFS_PROJECT_ID"
 echo " "
 
 echo "cd into the deploy-gke directory"
