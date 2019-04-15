@@ -24,8 +24,14 @@ echo " "
 echo "We are Assuming you have a Kubernetes cluster running at GKE"
 echo " "
 
+echo "Connect to your cluster"
+gcloud container clusters get-credentials jeffs-gke-cluster-hello-go-deploy-gke \
+    --zone us-west1-a \
+    --project $GCP_JEFFS_PROJECT_ID
+echo " "
+
 echo "cd into the deploy-gke directory"
-cd hello-go-deploy-gke/example-01/deploy-gce
+cd hello-go-deploy-gke/example-01/deploy-gke
 echo " "
 
 echo "sh deploy-gke.sh"
