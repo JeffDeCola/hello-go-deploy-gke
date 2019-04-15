@@ -22,11 +22,42 @@ As a bonus, you can use Concourse CI to run the scripts,
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
+## CREATE A KUBERNETES CLUSTER ON GCE (3 NODES)
+
+Before we can do anything, you need to create a kubernetes cluster on `gce`.
+This costs money, so when you're done, you can destroy it.
+
+My script
+[create-gke-cluster](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/create-gke-cluster/create-gke-cluster.sh)
+fires up an affordable 3-node cluster
+`jeffs-cluster-hello-go-deploy-gke`
+using small `f1-micro` machines. This should cost under 20 cents for a few hours.
+
+The `f1-micro` machines are really too small for real production, but should
+be fine for testing if you only have 1-2 pods.
+
+The script will also authenticate with your cluster.
+
+To destroy cluster,
+
+```bash
+gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
+    clusters delete jeffs-gke-cluster-hello-go-deploy-gke \
+    --zone "us-west1-a"
+```
+
 ## EXAMPLES
 
 This repo may have a few examples. We will deploy example 1.
 
 ### EXAMPLE 1
+
+This program will display a running count on a website.
+
+```bash
+Hello, world! - hello-go-deploy-gke example 01 - Using a docker container for gke
+The current count is 26
+```
 
 To run from the command line,
 
@@ -34,14 +65,15 @@ To run from the command line,
 go run main.go
 ```
 
-Every 2 seconds `hello-go-deploy-gke` will print:
+Check that its working,
 
 ```bash
-Hello everyone, count is: 1
-Hello everyone, count is: 2
-Hello everyone, count is: 3
-etc...
+curl localhost:8080"
 ```
+
+ or
+
+[localhost:8080](http://localhost:8080/)
 
 ## STEP 1 - TEST
 
@@ -86,7 +118,7 @@ on `alpine`, which is around 13MB.
 You can check and test your docker image,
 
 ```bash
-docker run --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
+docker run -p 8080:8080 --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
 docker exec -i -t hello-go-deploy-gke /bin/bash
 docker logs hello-go-deploy-gke
 docker images jeffdecola/hello-go-deploy-gke:latest
@@ -119,9 +151,65 @@ There is a `build-push.sh` script to build and push to DockerHub.
 There is also a script in the /ci folder to build and push
 in concourse.
 
-## STEP 4 - DEPLOY
+## STEP 4 - DEPLOY (TO KUBERNETES CLUSTER)
 
-tbd
+First deploy your docker image on Dockerhub to your cluster
+you made above (creates a `workload`),
+
+You can either use kubectl or the yaml configuration file.
+
+Both methods are noted in
+[deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/deploy-gke/deploy-gke.sh).
+
+This script will also make a `service` from your `workload`.
+Expose a `workload` port 8080 to the world (This will
+make an IP address),
+
+Inspect your deployment,
+
+```bash
+    kubectl get deployments
+    kubectl get deployment jeffs-web-counter-deployment
+```
+
+Delete your deployment,
+
+```bash
+   kubectl delete service jeffs-web-counter-service
+```
+
+Inspect your service,
+
+```bash
+   kubectl get services
+   kubectl get service jeffs-web-counter-service
+```
+
+Delete your service,
+
+```bash
+   kubectl delete service jeffs-web-counter-service
+```
+
+## KUBERNETES DASHBOARD (THIS IS NICE)
+
+If you noticed we used the addon KubernetesDashboard when we created our cluster.
+
+To use, first get a secret token,
+
+```bash
+gcloud config config-helper --format=json | jq -r '.credential.access_token'
+```
+
+Then run a proxy,
+
+```bash
+kubectl proxy
+```
+
+And open in a browser and enter your token,
+
+[localhost:8001](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
