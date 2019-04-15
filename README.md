@@ -209,7 +209,7 @@ kubectl get deployment jeffs-web-counter-deployment
 Delete your deployment,
 
 ```bash
-kubectl delete deployment jeffs-web-counter-deployment"
+kubectl delete deployment jeffs-web-counter-deployment
 ```
 
 Inspect your service,
