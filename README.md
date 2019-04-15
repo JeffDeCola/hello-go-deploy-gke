@@ -56,19 +56,17 @@ As a bonus, you can use Concourse CI to run the scripts,
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## CREATE A KUBERNETES CLUSTER ON GCE (3 NODES)
+## CREATE A KUBERNETES CLUSTER ON GCE
 
 Before we can do anything, you need to create a kubernetes cluster on `gce`.
 This costs money, so when you're done, you can destroy it.
 
 My script
 [create-gke-cluster](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/create-gke-cluster/create-gke-cluster.sh)
-fires up an affordable 3-node cluster
-`jeffs-cluster-hello-go-deploy-gke`
-using small `f1-micro` machines. This should cost under 20 cents for a few hours.
+fires up an affordable cluster `jeffs-cluster-hello-go-deploy-gke`.
 
 The `f1-micro` machines are really too small for real production, but should
-be fine for testing if you only have 1-2 pods.
+be fine for testing if you only have 1 pods.
 
 The script will also authenticate with your cluster.
 
@@ -197,7 +195,7 @@ Both methods are noted in
 
 This script will also make a `service`. Services are endpoints
 that export ports to the outside world.
-Expose port 8080 to the world (This will make an IP address),
+Expose port 8080 to the world (this will make an IP address),
 
 Inspect your deployment,
 
