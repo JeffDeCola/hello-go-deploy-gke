@@ -67,12 +67,17 @@ fires up an affordable 3-node cluster
 `jeffs-cluster-hello-go-deploy-gke`
 using small `f1-micro` machines. This should cost under 20 cents for a few hours.
 
+The `f1-micro` machines are really too small for real production, but should
+be fine for testing if you only have 1-2 pods.
+
 The script will also authenticate with your cluster.
 
 To destroy cluster,
 
 ```bash
-gcloud container clusters delete jeffs-gke-cluster-hello-go-deploy-gke
+gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
+    clusters delete jeffs-gke-cluster-hello-go-deploy-gke \
+    --zone "us-west1-a"
 ```
 
 ## EXAMPLES
@@ -182,38 +187,42 @@ in concourse.
 
 ## STEP 4 - DEPLOY (TO KUBERNETES CLUSTER)
 
-Deploy your docker image on Dockerhub to your cluster
+First deploy your docker image on Dockerhub to your cluster
 you made above (creates a `workload`),
 
-```bash
-kubectl run jeffs-web-counter \
-    --image "jeffdecola/hello-go-deploy-gke:latest" \
-    --port "8080"
-```
+You can either use kubectl or the yaml configuration file.
 
-This will make a container in a pod on a node.
+Both methods are noted in
+[deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/deploy-gke/deploy-gke.sh).
 
-Mow make a `service` from your `workload`.
+This script will also make a `service` from your `workload`.
 Expose a `workload` port 8080 to the world (This will
 make an IP address),
 
+Inspect your deployment,
+
 ```bash
-kubectl expose deployment jeffs-web-counter \
-    --type LoadBalancer \
-    --port 80 \
-    --target-port 8080
+    kubectl get deployments
+    kubectl get deployment jeffs-web-counter-deployment
 ```
 
-Inspect your `service` to get IP,
+Delete your deployment,
 
 ```bash
-kubectl get service jeffs-web-counter
+   kubectl delete service jeffs-web-counter-service
 ```
 
-Delete your `service`,
+Inspect your service,
 
 ```bash
-kubectl delete service jeffs-web-counter
+   kubectl get services
+   kubectl get service jeffs-web-counter-service
+```
+
+Delete your service,
+
+```bash
+   kubectl delete service jeffs-web-counter-service
 ```
 
 ## KUBERNETES DASHBOARD (THIS IS NICE)

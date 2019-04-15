@@ -19,23 +19,48 @@ else
 fi
 
 echo "Deploy your docker image on Dockerhub to your cluster"
-kubectl run jeffs-web-counter \
-    --image "jeffdecola/hello-go-deploy-gke:latest" \
-    --port "8080"
+echo "  image: jeffdecola/hello-go-deploy-gke:latest"
 echo " "
 
-echo "Export to the world"
-kubectl expose deployment jeffs-web-counter \
-    --type LoadBalancer \
-    --port 80 \
-    --target-port 8080
+#echo "Deploy via kubectl run"
+#kubectl run jeffs-web-counter-deployment \
+#    --replicas 2 \
+#    --image "jeffdecola/hello-go-deploy-gke:latest" \
+#    --port "8080"
+#echo " "
+
+echo "Deploy via yaml file"
+kubectl create -f deploy.yaml
 echo " "
 
-echo "You can inspect your service" 
-echo "    kubectl get service jeffs-web-counter"
+echo "Start your service - Expose to the world"
 echo " "
-echo "You can delete your service" 
-echo "    kubectl delete service jeffs-web-counter"
+
+#echo "Service via kubectl expose"
+#kubectl expose deployment jeffs-web-counter-deployment \
+#    --name jeffs-web-counter-service \
+#    --type LoadBalancer \
+#    --port 80 \
+#    --target-port 8080
+#echo " "
+
+#echo "Service via yaml file"
+kubectl create -f service.yaml
+#echo " "
+
+echo "Inspect your deployment"
+echo "    kubectl get deployments"
+echo "    kubectl get deployment jeffs-web-counter-deployment"
+echo " "
+echo "Delete your deployment" 
+echo "    kubectl delete service jeffs-web-counter-service"
+echo " "
+echo "Inspect your service" 
+echo "    kubectl get services"
+echo "    kubectl get service jeffs-web-counter-service"
+echo " "
+echo "Delete your service" 
+echo "    kubectl delete service jeffs-web-counter-service"
 echo " "
 
 echo "*****************************************************************************"
