@@ -21,10 +21,13 @@ echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
 echo "   /hello-go-deploy-gke"
 echo " "
 
-echo "We are Assuming you have a Kubernetes cluster running at GKE"
+echo "Assuming you have a Kubernetes cluster running at gke"
+echo "jeffs-gke-cluster-hello-go-deploy-gke"
 echo " "
 
-echo "PRESTEPS"
+echo "------------------------------------------------------------"
+echo "PRESTEPS - AUTHENTICATE GCP ACCOUNT VIA SERVICE ACCOUNT FILE"
+echo "------------------------------------------------------------"
 echo " "
 
 echo "Note: $GCP_JEFFS_PROJECT_ID AND $GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS env variable already preset"
@@ -55,6 +58,11 @@ echo " "
 
 echo "gcloud config list"
 gcloud config list
+echo " "
+
+echo "--------------------------------------------------------------"
+echo "COMPLETED - AUTHENTICATED GCP ACCOUNT VIA SERVICE ACCOUNT FILE"
+echo "--------------------------------------------------------------"
 echo " "
 
 echo "Connect to your cluster"

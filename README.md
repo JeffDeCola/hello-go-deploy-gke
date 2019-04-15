@@ -202,27 +202,27 @@ Expose port 8080 to the world (This will make an IP address),
 Inspect your deployment,
 
 ```bash
-    kubectl get deployments
-    kubectl get deployment jeffs-web-counter-deployment
+kubectl get deployments
+kubectl get deployment jeffs-web-counter-deployment
 ```
 
 Delete your deployment,
 
 ```bash
-   kubectl delete service jeffs-web-counter-service
+kubectl delete deployment jeffs-web-counter-deployment"
 ```
 
 Inspect your service,
 
 ```bash
-   kubectl get services
-   kubectl get service jeffs-web-counter-service
+kubectl get services
+kubectl get service jeffs-web-counter-service
 ```
 
 Delete your service,
 
 ```bash
-   kubectl delete service jeffs-web-counter-service
+kubectl delete service jeffs-web-counter-service
 ```
 
 ## KUBERNETES DASHBOARD (THIS IS NICE)
