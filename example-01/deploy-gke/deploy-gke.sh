@@ -44,9 +44,9 @@ echo " "
 #    --target-port 8080
 #echo " "
 
-#echo "Service via yaml file"
+echo "Service via yaml file"
 kubectl create -f service.yaml
-#echo " "
+echo " "
 
 echo "Inspect your deployment"
 echo "    kubectl get deployments"

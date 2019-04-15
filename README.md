@@ -195,9 +195,9 @@ You can either use kubectl or the yaml configuration file.
 Both methods are noted in
 [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/deploy-gke/deploy-gke.sh).
 
-This script will also make a `service` from your `workload`.
-Expose a `workload` port 8080 to the world (This will
-make an IP address),
+This script will also make a `service`. Services are endpoints
+that export ports to the outside world.
+Expose port 8080 to the world (This will make an IP address),
 
 Inspect your deployment,
 
