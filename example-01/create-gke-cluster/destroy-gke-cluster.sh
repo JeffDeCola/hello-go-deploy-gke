@@ -19,8 +19,9 @@ else
 fi
 
 echo "Destroy cluster at gke"
-gcloud container clusters delete jeffs-gke-cluster-hello-go-deploy-gke \
-    --zone "us-west1-a" 
+gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
+    clusters delete jeffs-gke-cluster-hello-go-deploy-gke \
+    --zone "us-west1-a"
 echo " "
 
 echo "**************************************************************************************"

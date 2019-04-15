@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jeffs-web-counter-deployment
+spec:
+  selector:
+    matchLabels:
+      app: jeffs-web-counter
+  replicas: 2 # How many pods I want to create (Default 1 container per pod)
+  template:
+    metadata:
+      labels:
+        app: jeffs-web-counter
+    spec:
+      containers:
+      - name: jeffs-web-counter
+        image: jeffdecola/hello-go-deploy-gke:latest
+        ports:
+        - containerPort: 8080
