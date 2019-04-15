@@ -8,6 +8,11 @@ image_resource:
     repository: golang
     tag: 1.11
 
+params:
+  GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE: "this will be overwritten"
+  GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS: "this will be overwritten"
+  GCP_JEFFS_PROJECT_ID: "this will be overwritten"
+
 inputs:
 - name: hello-go-deploy-gke
 
