@@ -1,15 +1,18 @@
-# hello-go-deploy-gke
+# HELLO GO DEPLOY GKE
 
+[![Tag Latest](https://img.shields.io/github/v/tag/jeffdecola/hello-go-deploy-gke)](https://github.com/JeffDeCola/hello-go-deploy-gke/tags)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JeffDeCola/hello-go-deploy-gke.svg)](https://pkg.go.dev/github.com/JeffDeCola/hello-go-deploy-gke)
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-gke)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-gke)
-[![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-gke)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ce328e08ef7038607b16/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/maintainability)
-[![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/issues)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![codeclimate Maintainability](https://api.codeclimate.com/v1/badges/ce328e08ef7038607b16/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/maintainability)
+[![codeclimate Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-gke/issues)
+[![Docker Pulls](https://badgen.net/docker/pulls/jeffdecola/hello-go-deploy-gke?icon=docker&label=pulls)](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke/)
+[![MIT License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
-`hello-go-deploy-gke` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Google Kubernetes Engine (gke)._
+_Deploy a "hello-world" docker image to
+Google Kubernetes Engine (gke)._
 
-I also have other repos showing different deployments,
+Other Services
 
 * PaaS
   * [hello-go-deploy-aws-elastic-beanstalk](https://github.com/JeffDeCola/hello-go-deploy-aws-elastic-beanstalk)
@@ -27,12 +30,19 @@ I also have other repos showing different deployments,
   * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
   * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 
-The `hello-go-deploy-gke`
-[Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke)
-on DockerHub.
+Table of Contents
 
-The `hello-go-deploy-gke`
-[GitHub Webpage](https://jeffdecola.github.io/hello-go-deploy-gke/).
+* ???
+
+Documentation and Reference
+
+* The
+  [hello-go-deploy-gke docker image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke)
+  on DockerHub
+* This repos
+  [github webpage](https://jeffdecola.github.io/hello-go-deploy-gke/)
+  _built with
+  [concourse](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/ci-README.md)_
 
 ## PREREQUISITES
 
