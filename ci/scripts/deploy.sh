@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-gke deploy.sh
+# hello-go-deploy-aks deploy.sh
 
 echo " "
 
@@ -17,66 +17,30 @@ else
     echo " "
 fi
 
-echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
-echo "   /hello-go-deploy-gke"
+echo "GOAL ----------------------------------------------------------------------------------"
 echo " "
 
-echo "Assuming you have a Kubernetes cluster running at gke"
-echo "jeffs-gke-cluster-hello-go-deploy-gke"
+echo "The goal is to Deploy a docker image to Microsoft Azure Kubernetes Service (aks)"
 echo " "
 
-echo "------------------------------------------------------------"
-echo "PRESTEPS - AUTHENTICATE GCP ACCOUNT VIA SERVICE ACCOUNT FILE"
-echo "------------------------------------------------------------"
+echo "CHECK THINGS --------------------------------------------------------------------------"
 echo " "
 
-echo "Note: $GCP_JEFFS_PROJECT_ID AND $GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS env variable already preset"
+echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
+echo "   /hello-go-deploy-aks"
 echo " "
 
-echo "Write credential.json file to /root from preset $GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE"
-echo "$GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE" | base64 -d > /root/google-credentials.json
-
-echo "Set $GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH (file location) env variable"
-export GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH="/root/google-credentials.json"
+echo "pwd is: $PWD"
 echo " "
 
-echo "gcloud auth activate-service-account $GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS --key-file $GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH"
-gcloud auth activate-service-account "$GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS" --key-file "$GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH"
+echo "List whats in the current directory"
+ls -la
 echo " "
 
-echo "gcloud config set project $GCP_JEFFS_PROJECT_ID"
-gcloud config set project "$GCP_JEFFS_PROJECT_ID"
+echo "DEPLOY ---------------------------------------------------------------------------------"
 echo " "
 
-echo "gcloud version"
-gcloud version
-echo " "
-
-echo "gcloud components list"
-gcloud components list
-echo " "
-
-echo "gcloud config list"
-gcloud config list
-echo " "
-
-echo "--------------------------------------------------------------"
-echo "COMPLETED - AUTHENTICATED GCP ACCOUNT VIA SERVICE ACCOUNT FILE"
-echo "--------------------------------------------------------------"
-echo " "
-
-echo "Connect to your cluster"
-gcloud container clusters get-credentials jeffs-gke-cluster-hello-go-deploy-gke \
-    --zone us-west1-a \
-    --project "$GCP_JEFFS_PROJECT_ID"
-echo " "
-
-echo "cd into the deploy-gke directory"
-cd hello-go-deploy-gke/example-01/deploy-gke
-echo " "
-
-echo "sh deploy-gke.sh"
-sh deploy-gke.sh
+echo "DEPOY - PLACEHOLDER - DEPLOY"
 echo " "
 
 echo "deploy.sh (END)"

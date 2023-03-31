@@ -1,9 +1,12 @@
-#!/bin/bash
-# hello-go-deploy-gke set-pipeline.sh
+#!/bin/sh
+# hello-go-deploy-aks set-pipeline.sh
 
-fly -t ci set-pipeline -p hello-go-deploy-gke -c pipeline.yml \
-    --load-vars-from ../../../../../.credentials.yml \
-    --var "gcp_jeffs_app_service_account_file=$(cat $GCP_JEFFS_APP_SERVICE_ACCOUNT_PATH | base64)" \
-    --var "gcp_jeffs_app_service_account_email_address=$GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS" \
-    --var "gcp_jeffs_project_id=$GCP_JEFFS_PROJECT_ID"
-    
+echo " "
+echo "Set pipeline on target jeffs-ci-target which is team jeffs-ci-team"
+fly --target jeffs-ci-target \
+    set-pipeline \
+    --pipeline hello-go-deploy-aks \
+    --config pipeline.yml \
+    --load-vars-from ../../../.credentials.yml \
+    --check-creds
+echo " "

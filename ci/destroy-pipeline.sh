@@ -1,4 +1,9 @@
-#!/bin/bash
-# hello-go-deploy-gke destroy-pipeline.sh
+#!/bin/sh
+# hello-go-deploy-aks destroy-pipeline.sh
 
-fly -t ci destroy-pipeline --pipeline hello-go-deploy-gke
+echo " "
+echo "Destroy pipeline on target jeffs-ci-target which is team jeffs-ci-team"
+fly --target jeffs-ci-target \
+    destroy-pipeline \
+    --pipeline hello-go-deploy-aks
+echo " "

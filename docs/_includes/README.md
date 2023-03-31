@@ -13,36 +13,14 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to `gke` you will need,
+To deploy `aks` you will need,
 
-* [google kubernetes engine (gke)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/containers-as-a-service/google-kubernetes-engine-cheat-sheet)
+* [microsoft azure kubernetes service (aks)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/containers-as-a-service/microsoft-azure-kubernetes-service-cheat-sheet)
 
 As a bonus, you can use Concourse CI to run the scripts,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
-
-## CREATE A KUBERNETES CLUSTER ON GCE
-
-Before we can do anything, you need to create a kubernetes cluster on `gce`.
-This costs money, so when you're done, you can destroy it.
-
-My script
-[create-gke-cluster](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/create-gke-cluster/create-gke-cluster.sh)
-fires up an affordable cluster `jeffs-cluster-hello-go-deploy-gke`.
-
-The `f1-micro` machines are really too small for real production, but should
-be fine for testing if you only have 1 pods.
-
-The script will also authenticate with your cluster.
-
-To destroy cluster,
-
-```bash
-gcloud container --project "$GCP_JEFFS_PROJECT_ID" \
-    clusters delete jeffs-gke-cluster-hello-go-deploy-gke \
-    --zone "us-west1-a"
-```
 
 ## EXAMPLES
 
@@ -50,28 +28,20 @@ This repo may have a few examples. We will deploy example 1.
 
 ### EXAMPLE 1
 
-This program will display a running count on a website.
-
-```bash
-Hello, world! - hello-go-deploy-gke example 01 - Using a docker container for gke
-The current count is 26
-```
-
 To run from the command line,
 
 ```bash
 go run main.go
 ```
 
-Check that its working,
+Every 2 seconds `hello-go-deploy-aks` will print:
 
 ```bash
-curl localhost:8080"
+Hello everyone, count is: 1
+Hello everyone, count is: 2
+Hello everyone, count is: 3
+etc...
 ```
-
- or
-
-[localhost:8080](http://localhost:8080/)
 
 ## STEP 1 - TEST
 
@@ -91,7 +61,7 @@ We will be using a multi-stage build using a Dockerfile.
 The end result will be a very small docker image around 13MB.
 
 ```bash
-docker build -f build-push/Dockerfile -t jeffdecola/hello-go-deploy-gke .
+docker build -f build-push/Dockerfile -t jeffdecola/hello-go-deploy-aks .
 ```
 
 Obviously, replace `jeffdecola` with your DockerHub username.
@@ -106,7 +76,7 @@ build the binary in go,
 ```bash
 FROM golang:alpine AS builder
 RUN go get -d -v
-RUN go build -o /go/bin/hello-go-deploy-gke main.go
+RUN go build -o /go/bin/hello-go-deploy-aks main.go
 ```
 
 In stage 2, the Dockerfile will copy the binary created in
@@ -116,10 +86,10 @@ on `alpine`, which is around 13MB.
 You can check and test your docker image,
 
 ```bash
-docker run -p 8080:8080 --name hello-go-deploy-gke -dit jeffdecola/hello-go-deploy-gke
-docker exec -i -t hello-go-deploy-gke /bin/bash
-docker logs hello-go-deploy-gke
-docker images jeffdecola/hello-go-deploy-gke:latest
+docker run --name hello-go-deploy-aks -dit jeffdecola/hello-go-deploy-aks
+docker exec -i -t hello-go-deploy-aks /bin/bash
+docker logs hello-go-deploy-aks
+docker images jeffdecola/hello-go-deploy-aks:latest
 ```
 
 There is a `build-push.sh` script to build and push to DockerHub.
@@ -139,99 +109,43 @@ docker login
 Once logged in you can push to DockerHub
 
 ```bash
-docker push jeffdecola/hello-go-deploy-gke
+docker push jeffdecola/hello-go-deploy-aks
 ```
 
 Check you image at DockerHub. My image is located
-[https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke).
+[https://hub.docker.com/r/jeffdecola/hello-go-deploy-aks](https://hub.docker.com/r/jeffdecola/hello-go-deploy-aks).
 
 There is a `build-push.sh` script to build and push to DockerHub.
 There is also a script in the /ci folder to build and push
 in concourse.
 
-## STEP 4 - DEPLOY (TO KUBERNETES CLUSTER)
+## STEP 4 - DEPLOY
 
-First deploy your docker image on Dockerhub to your cluster
-you made above (creates a `workload`),
-
-You can either use kubectl or the yaml configuration file.
-
-Both methods are noted in
-[deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/blob/master/example-01/deploy-gke/deploy-gke.sh).
-
-This script will also make a `service`. Services are endpoints
-that export ports to the outside world.
-Expose port 8080 to the world (this will make an IP address),
-
-Inspect your deployment,
-
-```bash
-kubectl get deployments
-kubectl get deployment jeffs-web-counter-deployment
-```
-
-Delete your deployment,
-
-```bash
-kubectl delete deployment jeffs-web-counter-deployment
-```
-
-Inspect your service,
-
-```bash
-kubectl get services
-kubectl get service jeffs-web-counter-service
-```
-
-Delete your service,
-
-```bash
-kubectl delete service jeffs-web-counter-service
-```
-
-## KUBERNETES DASHBOARD (THIS IS NICE)
-
-If you noticed we used the addon KubernetesDashboard when we created our cluster.
-
-To use, first get a secret token,
-
-```bash
-gcloud config config-helper --format=json | jq -r '.credential.access_token'
-```
-
-Then run a proxy,
-
-```bash
-kubectl proxy
-```
-
-And open in a browser and enter your token,
-
-[localhost:8001](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
+tbd
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
 For fun, I use concourse to automate the above steps.
 
-A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/pipeline.yml)
+A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-aks/tree/master/ci/pipeline.yml)
 shows the entire ci flow. Visually, it looks like,
 
-![IMAGE - hello-go-deploy-gke concourse ci pipeline - IMAGE](pics/hello-go-deploy-gke-pipeline.jpg)
+![IMAGE - hello-go-deploy-aks concourse ci pipeline - IMAGE](pics/hello-go-deploy-aks-pipeline.jpg)
 
 The `jobs` and `tasks` are,
 
 * `job-readme-github-pages` runs task
-  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/readme-github-pages.sh).
+  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-aks/tree/master/ci/scripts/readme-github-pages.sh).
 * `job-unit-tests` runs task
-  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/unit-tests.sh).
+  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-aks/tree/master/ci/scripts/unit-tests.sh).
 * `job-build-push` runs task
-  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/build-push.sh).
+  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aks/tree/master/ci/scripts/build-push.sh).
 * `job-deploy` runs task
-  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-gke/tree/master/ci/scripts/deploy.sh).
+  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-aks/tree/master/ci/scripts/deploy.sh).
 
 The concourse `resources type` are,
 
-* `hello-go-deploy-gke` uses a resource type
+* `hello-go-deploy-aks` uses a resource type
   [docker-image](https://hub.docker.com/r/concourse/git-resource/)
   to PULL a repo from github.
 * `resource-dump-to-dockerhub` uses a resource type

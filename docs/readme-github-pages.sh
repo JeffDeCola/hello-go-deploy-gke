@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-gke readme-github-pages.sh
+# hello-go-deploy-aws readme-github-pages.sh
 
 echo " "
 
@@ -16,7 +16,7 @@ else
     echo " "
 fi
 
-echo "cd up to /hello-go-deploy-gke directory"
+echo "cd up to /hello-go-deploy-aws directory"
 echo " "
 cd ..
 
