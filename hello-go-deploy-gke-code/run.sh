@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# hello-go-deploy-aks run.sh
+# hello-go-deploy-gke run.sh
 
 echo " "
 
