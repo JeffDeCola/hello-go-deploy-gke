@@ -1,22 +1,17 @@
-# hello-go-deploy-gke task-deploy.yml
+# hello-go-deploy-aks task-deploy.yml
 
 platform: linux
 
+# DOCKER BASE IMAGE FOR TASKS (BASED ON ALPINE, A SMALLER LINUX DISTRIBUTION)
 image_resource:
   type: docker-image
   source:
-    repository: jeffdecola/gcloud-kubectl
-    tag: latest
-
-params:
-  GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE: "this will be overwritten"
-  GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS: "this will be overwritten"
-  GCP_JEFFS_PROJECT_ID: "this will be overwritten"
+    repository: golang
+    tag: 1.20.1
 
 inputs:
-- name: hello-go-deploy-gke
+  - name: hello-go-deploy-aks
 
 run:
-  path: ./hello-go-deploy-gke/ci/scripts/deploy.sh
+  path: ./hello-go-deploy-aks/ci/scripts/deploy.sh
   # args: [-debug]
-
