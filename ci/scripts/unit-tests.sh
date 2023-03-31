@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-aks unit-tests.sh
+# hello-go-deploy-gke unit-tests.sh
 
 echo " "
 
@@ -20,7 +20,7 @@ fi
 echo "GOAL ----------------------------------------------------------------------------------"
 echo " "
 
-echo "The goal is to set up a go src/github.com/JeffDeCola/hello-go-deploy-aks directory"
+echo "The goal is to set up a go src/github.com/JeffDeCola/hello-go-deploy-gke directory"
 echo "Then tests will be run in that directory"
 echo "Test coverage results, text_coverage.txt, will be moved to /coverage-results directory"
 echo " "
@@ -29,7 +29,7 @@ echo "CHECK THINGS -------------------------------------------------------------
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /hello-go-deploy-aks"
+echo "   /hello-go-deploy-gke"
 echo "   /coverage-results (created in task-unit-test.yml task file)"
 echo " "
 
@@ -48,16 +48,16 @@ echo "export GOPATH=\$PWD"
 export GOPATH=$PWD
 echo " "
 
-echo "Now we must move our code from the current directory ./hello-go-deploy-aks to" 
-echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-aks"
+echo "Now we must move our code from the current directory ./hello-go-deploy-gke to" 
+echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-gke"
 echo "mkdir -p src/github.com/JeffDeCola/"
 mkdir -p src/github.com/JeffDeCola/
-echo "cp -R ./hello-go-deploy-aks src/github.com/JeffDeCola/."
-cp -R ./hello-go-deploy-aks src/github.com/JeffDeCola/.
+echo "cp -R ./hello-go-deploy-gke src/github.com/JeffDeCola/."
+cp -R ./hello-go-deploy-gke src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/hello-go-deploy-aks/hello-go-deploy-aks-code"
-cd src/github.com/JeffDeCola/hello-go-deploy-aks/hello-go-deploy-aks-code
+echo "cd src/github.com/JeffDeCola/hello-go-deploy-gke/hello-go-deploy-gke-code"
+cd src/github.com/JeffDeCola/hello-go-deploy-gke/hello-go-deploy-gke-code
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
@@ -90,7 +90,7 @@ go test -cover ./... | tee test/test_coverage.txt
 
 # echo "mkdir -p test"
 # mkdir -p test
-# echo "Placeholder to run go tests for hello-go-deploy-aks" | tee test/test_coverage.txt
+# echo "Placeholder to run go tests for hello-go-deploy-gke" | tee test/test_coverage.txt
 # echo " "
 
 echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"

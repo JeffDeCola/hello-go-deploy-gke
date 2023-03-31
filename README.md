@@ -10,7 +10,7 @@
 [![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
 _Deploy a "hello-world" docker image to
-Microsoft Azure Kubernetes Service (aks)._
+Google Kubernetes Engine (gke)._
 
 Other Services
 
@@ -39,7 +39,7 @@ Table of Contents
 * [STEP 1 - TEST](https://github.com/JeffDeCola/hello-go-deploy-gke#step-1---test)
 * [STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)](https://github.com/JeffDeCola/hello-go-deploy-gke#step-2---build-docker-image-via-dockerfile)
 * [STEP 3 - PUSH (TO DOCKERHUB)](https://github.com/JeffDeCola/hello-go-deploy-gke#step-3---push-to-dockerhub)
-* [STEP 4 - DEPLOY (TO AKS)](https://github.com/JeffDeCola/hello-go-deploy-gke#step-4---deploy-to-aks)
+* [STEP 4 - DEPLOY (TO GKE)](https://github.com/JeffDeCola/hello-go-deploy-gke#step-4---deploy-to-GKE)
 * [CONTINUOUS INTEGRATION & DEPLOYMENT](https://github.com/JeffDeCola/hello-go-deploy-gke#continuous-integration--deployment)
 
 Documentation and Reference
@@ -83,7 +83,7 @@ go get -u -v github.com/cweill/gotests/...
   * [docker](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations/orchestration/builds-deployment-containers/docker-cheat-sheet)
 * SERVICES
   * [dockerhub](https://hub.docker.com/)
-  * azure kubernetes service (aks)
+  * google kubernetes engine (gke)
 
 ## RUN
 
@@ -173,7 +173,7 @@ Check the
 [hello-go-deploy-gke docker image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-gke)
 at DockerHub.
 
-## STEP 4 - DEPLOY (TO AKS)
+## STEP 4 - DEPLOY (TO GKE)
 
 _Coming soon._
 
