@@ -1,0 +1,20 @@
+# hello-go-deploy-gke task-readme-github-pages.yml
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: 1.11
+
+inputs:
+- name: hello-go-deploy-gke
+
+outputs:
+- name: hello-go-deploy-gke-updated
+
+run:
+  path: ./hello-go-deploy-gke/ci/scripts/readme-github-pages.sh
+  # args: [-debug]
+
